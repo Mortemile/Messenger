@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Чатик</title>
+
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/stylesheet.css') }}">
+
+    <style>
+        .layer1 {
+            background-color: #a9b388;
+            border: 2px solid #5F6F52;
+            border-radius:10px;
+            overflow-wrap: break-word;
+            width:50em;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 4px;
+
+        }
+
+
+        .img-scale {
+            transition: 1s; /* Время эффекта */
+        }
+        .img-scale:hover {
+            transform: scale(1.05); /* Увеличиваем масштаб */
+        }
+
+	</style>
+
+    <!-- Подключение библиотеки jQuery-->
+    <script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous">
+    </script>
+
+    <!-- Код взаимодействия с сервером -->
+    <script language="JavaScript">
+        // Загрузка и отображение сообщений
+        function loadMessages() {
+           $.get(
+            "/get_messages",
+            (data) => {
+                $("#chat_window").empty();
+                var messages = data["messages"];
+                for (var i in messages) {
+                    var message = messages[i];
+                    var name = message["sender"];
+                    var text = message["text"];
+                    var time = message["time"];
+                    var predlog = 'in'
+                    console.log(name, text, time);
+                    var html = "<div> [<b> " + name + " </b>]: " + text + " <i> " +predlog+ " " + time + "</i> </div> <br>";
+                    var div = $(html); // div = визуальный элемент с сообщением
+
+                    $("#chat_window").append(div);
+                }
+            }
+           );
+        }
+
+        // Отправка сообщения
+        function sendMessage() {
+            var name = $("#name").val(); // Кладем текст из поля "name" в переменную
+            var text = $("#text").val();
+            $.get("/send_message", { "name" : name, "text" : text});
+
+            $("#text").val("");
+        }
+
+        // При загрузке страницы
+        $(() => {
+           // При нажатии клавиш в поле текст
+           $("#text").on("keypress", (event) => {
+                // При нажатии Enter, вызвать функцию sendMessage
+                if (event.keyCode == 13) {
+                    sendMessage();
+                }
+           });
+
+           // Каждую секунду вызывать loadMessages
+           setInterval(loadMessages, 1000);
+        });
+
+    </script>
+</head>
+<body>
+<header class="header">
+        <div class="wrapper">
+            <div class="header_wrapper">
+
+                <nav class="header_nav">
+                    <ul class="header_list">
+                        <li class="header_item">
+                            <a href="http://146.185.210.69:80/future" class="header_link">Будущее проекта</a>
+                        </li>
+                        <li class="header_item">|</li>
+                        <li class="header_item">
+                            <a href="http://146.185.210.69:80/donats" class="header_link">Донаты сюда</a>
+                        </li>
+                        <li class="header_item">|</li>
+                        <li class="header_item">
+                            <a href="http://146.185.210.69:80/about" class="header_link">Обо мне</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <figure>
+    <img src="{{ url_for('static',filename='styles/shrek.jpg') }}" class="img-scale"></figure>
+    <h1>Мессенджер by Геля продакшн</h1>
+    <!-- Интерфейс: имя, окно чата, текст сообщения -->
+    <div class="layer1" id="chat_window"></div>
+    <br/>
+    <send>
+        <input id="name" type="text" placeholder="Ваше имя"/>
+        <br/>
+        <input id="text" type="text" placeholder="Текст сообщения">
+    </send>
+
+</body>
+</html>

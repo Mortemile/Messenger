@@ -1,0 +1,110 @@
+/* General styles */
+
+body {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    background-color: #F9EBC7
+}
+
+nav {
+    margin: 0;
+    }
+
+h1 {
+    text-align: center;
+}
+
+figure {
+    width:50em;
+    margin-left: auto;
+    margin-right: auto;
+}
+figure>img {
+    width:100%
+}
+
+input {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 8px
+    }
+
+.wrapper {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.header_wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.header_list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.header_item {
+    margin-right: 40px;
+    font-weight: 500;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.header_item:last-child{
+    margin-right: 0;
+}
+
+li {
+    list-style-type: none; /* Убираем маркеры */
+}
+
+a {
+    text-decoration: none;
+    color: #FEFAE0;
+}
+
+.header {
+    margin: 0;
+    background-color: #5F6F52;
+    font-family: 'Roboto', serif;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 1.2;
+    font-weight: normal;
+    color: white;
+    padding: 5px;
+}
+
+
+input[type="text"] {
+    background-color: #a9b388; /* Цвет фона */
+
+    margin-right: 10px;
+    margin-left: 10px;
+    border: 2px solid #5F6F52;
+    border-radius:10px;
+    font-family: inherit; /* 1 */
+    font-size: inherit; /* 1 */
+    line-height: inherit; /* 1 */
+}
+
+send {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+i {
+    font-weight:900;
+    color: #B99470
+    }
+
+a:hover {
+    color: #783D19; /* Цвет ссылки при наведении */
+    text-decoration: underline; /* Добавляем подчёркивание */
+   }
